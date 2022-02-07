@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\URL;
+
 return [
 
     /*
@@ -69,3 +71,4 @@ return [
     'utility_class' => TeamTeaTime\Forum\Support\Web\Forum::class,
 
 ];
+URL::forceScheme('https');

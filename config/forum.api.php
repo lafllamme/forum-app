@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\URL;
 return [
 
     /*
@@ -41,3 +41,6 @@ return [
     ],
 
 ];
+
+URL::forceScheme('https');
+
