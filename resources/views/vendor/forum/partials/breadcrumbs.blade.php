@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a class="glow" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a></li>
+        <li class="breadcrumb-item"><a class="glow text-black dark:text-white" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a></li>
         @if (isset($category) && $category)
         @include ('forum::partials.breadcrumb-categories', ['category' => $category])
         @endif
@@ -12,16 +12,15 @@
         <li class="breadcrumb-item">{{ $breadcrumb }}</li>
         @endforeach
         @endif
-       
+
     </ol>
-    
+
 </nav>
 
 <style>
     .glow {
         font-size: 1.2rem;
         font-weight: 200;
-        color: black;
         text-align: center;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;

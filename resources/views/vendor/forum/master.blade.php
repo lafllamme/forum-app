@@ -46,6 +46,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.23.2/vuedraggable.umd.min.js"></script>
 
     <style>
+        html {
+            overflow-x: hidden;
+
+        }
+
         body {
             padding: 0;
             background: #f8fafc;
@@ -160,49 +165,47 @@
             }
         }
 
-        @keyframes fire {
-            0% {
-                background-position: 0% -50%;
-            }
+        #fire {
+            background-color: #FFE53B;
+            background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
 
-            100% {
-                background-position: 0% -25%;
-            }
-        }
-
-        .flogo {
-            background-image: url("https://dl.dropbox.com/s/r2s8s2r17wi0xm6/flame.png?dl=0");
-            background-position: 0 -1000px;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fire 4s linear infinite;
+
+        }
+
+        /* Toggle A */
+        input:checked~.dot {
+            transform: translateX(100%);
+            background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%) !important;
         }
     </style>
 </head>
 
 <body class="dark:bg-gray-900">
-    <nav class="v-navbar navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+    <!-- <nav class="v-navbar navbar navbar-expand-md shadow-lg dark:shadow-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">
-                <h1 class="flogo">Flameboard</h1>
+            <a id="fire" class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">
+                Flameboard
             </a>
+
 
             <div class="collapse navbar-collapse" :class="{ show: !isCollapsed }">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a>
+                        <a class="hover:text-green-500 font-medium m-2 text-gray-900 dark:hover:text-red-300 dark:text-white" href="{{ url(config('forum.web.router.prefix')) }}">{{ trans('forum::general.index') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forum.recent') }}">{{ trans('forum::threads.recent') }}</a>
+                        <a class="hover:text-green-500 font-medium m-2 text-gray-900 dark:hover:text-red-300 dark:text-white" href="{{ route('forum.recent') }}">{{ trans('forum::threads.recent') }}</a>
                     </li>
                     @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forum.unread') }}">{{ trans('forum::threads.unread_updated') }}</a>
+                        <a class="hover:text-green-500 font-medium m-2 text-gray-900 dark:hover:text-red-300 dark:text-white" href="{{ route('forum.unread') }}">{{ trans('forum::threads.unread_updated') }}</a>
                     </li>
                     @endauth
                     @can ('moveCategories')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forum.category.manage') }}">{{ trans('forum::general.manage') }}</a>
+                        <a class="hover:text-green-500 font-medium m-2 text-gray-900 dark:hover:text-red-300 dark:text-white" href="{{ route('forum.category.manage') }}">{{ trans('forum::general.manage') }}</a>
                     </li>
                     <li>
                         @endcan
@@ -212,12 +215,12 @@
                     @if (Auth::check())
                     <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" @click="isUserDropdownCollapsed = ! isUserDropdownCollapsed">
+                        <a class="dropdown-toggle text-black hover:text-green-400 dark:text-white dark:hover:text-red-400" href="#" id="navbarDropdownMenuLink" @click="isUserDropdownCollapsed = ! isUserDropdownCollapsed">
                             {{ $username }}
                         </a>
-                        <div class="dropdown-menu" :class="{ show: ! isUserDropdownCollapsed }" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu dark:bg-gray-900" :class="{ show: ! isUserDropdownCollapsed }" aria-labelledby="navbarDropdownMenuLink">
 
-                            <a class="dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="hover:text-green-500 text-black hover:text-black dark:text-white dark:hover:text-red-400 " href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Log out
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -236,7 +239,140 @@
                 </ul>
             </div>
         </div>
+    </nav> -->
+    <nav class="bg-white-800 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button" class="bg-white-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:bg-gray-900 dark:hover:bg-white-900" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!--
+            Icon when menu is closed.
+
+            Heroicon name: outline/menu
+
+            Menu open: "hidden", Menu closed: "block"
+          -->
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!--
+            Icon when menu is open.
+
+            Heroicon name: outline/x
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class=" flex-shrink-0 flex items-center">
+                        <a class="text-black dark:text-white" href="{{ url(config('forum.web.router.prefix')) }}">Flameboard</a>
+                    </div>
+                    <div class="hidden sm:block sm:ml-6">
+                        <div class="flex space-x-4">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                            <a href="#" class="bg-gray-900 px-3 py-2 rounded-md text-sm font-medium text-white dark:bg-white dark:text-white" aria-current="page">Dashboard</a>
+
+                            <a href="#" class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium dark:text-white">Team</a>
+
+                            <a href="#" class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium  dark:text-white">Projects</a>
+
+                            <a href="#" class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium  dark:text-white">Calendar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <button type="button" class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">View notifications</span>
+                        <!-- Heroicon name: outline/bell -->
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                    </button>
+
+                    <!-- Profile dropdown -->
+                    <div class="ml-3 relative">
+                        <div>
+                            <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <span class="sr-only">Open user menu</span>
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            </button>
+                        </div>
+
+                        <!--
+            Dropdown menu, show/hide based on menu state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <!-- Active: "bg-gray-100", Not Active: "" -->
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium dark:bg-white dark:text-white" aria-current=" page">Dashboard</a>
+
+                <a href="#" class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium  dark:text-white">Team</a>
+
+                <a href="#" class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium  dark:text-white">Projects</a>
+
+                <a href="#" class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium  dark:text-white">Calendar</a>
+            </div>
+        </div>
     </nav>
+    </div>
+
+    <!-- <div class="flex justify-center mt-3">
+        <div class="form-check form-switch">
+            <input id="switchTheme" class="form-check-input appearance-none w-9 -ml-10 bg-white rounded-full float-left h-5 align-top bg-gray-200 bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm dark:bg-gray-900" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+            <label class="form-check-label inline-block text-gray-800 dark:text-white" for="flexSwitchCheckChecked">Toogle Darkmode 🌙</label>
+        </div>
+    </div> -->
+
+    <div class="flex items-center justify-center w-full mt-4">
+        <label for="toggleB" class="flex items-center cursor-pointer">
+            <!-- toggle -->
+            <div class="relative">
+                <!-- input -->
+                <input name="switchMode" type="checkbox" id="toggleB" class="sr-only" oninput="cacheInput(this)">
+                <!-- line -->
+                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                <!-- dot -->
+                <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+            <!-- label -->
+
+            <div class="shake-constant shake-little">
+                <div class="ml-3 text-gray-700 font-medium dark:text-white">
+                    Toggle Darkmode 🌙
+                </div>
+            </div>
+        </label>
+
+    </div>
+
+
+
+
     <div id="main" class="container dark:bg-gray-900">
         @include('forum::partials.breadcrumbs')
         @include('forum::partials.alerts')
@@ -261,9 +397,32 @@
     </div>
 
     <script>
-        document.getElementById('switchTheme').addEventListener('click', function() {
+        const toggle = document.getElementById('toggleB');
+
+        cacheInput = (e) => {
+            if (toggle.checked == true) {
+                localStorage.setItem(e.attributes["name"].value, 1)
+            }
+            if (toggle.checked == false) {
+                localStorage.setItem(e.attributes["name"].value, 0)
+            }
+        }
+
+
+        if (localStorage.switchMode == 0) {
+            // toggle.checked = 'false'
+            console.log('Offline')
+        }
+        if (localStorage.switchMode == 1) {
+            toggle.checked = 'true'
+            console.log('Online')
+
+        }
+
+
+
+        document.getElementById('toggleB').addEventListener('click', function() {
             let htmlClasses = document.querySelector('html').classList;
-            console.log('go')
             if (localStorage.theme == 'dark') {
                 htmlClasses.remove('dark');
                 localStorage.removeItem('theme')

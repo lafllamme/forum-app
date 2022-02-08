@@ -3,7 +3,6 @@
         <div class="modal-content shadow-sm dark:bg-gray-900 dark:text-white">
             <div class="modal-header">
                 <h5 class="modal-title">{!! $title !!}</h5>
-                <button type="button" class="btn-close" aria-label="Close" data-close-modal></button>
             </div>
             <form action="{{ $route }}" method="POST">
                 @csrf

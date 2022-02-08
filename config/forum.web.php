@@ -71,4 +71,4 @@ return [
     'utility_class' => TeamTeaTime\Forum\Support\Web\Forum::class,
 
 ];
-// URL::forceScheme('https');
+URL::forceScheme('https');

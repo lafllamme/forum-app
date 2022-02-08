@@ -42,5 +42,5 @@ return [
 
 ];
 
-// URL::forceScheme('https');
+URL::forceScheme('https');
 
