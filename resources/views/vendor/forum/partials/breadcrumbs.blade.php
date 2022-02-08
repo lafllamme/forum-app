@@ -12,7 +12,9 @@
         <li class="breadcrumb-item">{{ $breadcrumb }}</li>
         @endforeach
         @endif
+       
     </ol>
+    
 </nav>
 
 <style>

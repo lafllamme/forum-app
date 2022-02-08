@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,6 +14,9 @@
         {{ trans('forum::general.home_title') }}
     </title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script defer src="{{ asset('js/app.js') }}"></script>
+    <script defer src="{{ asset('js/alpine.js') }}"></script>
+
 
 
     <!-- Bootstrap (https://github.com/twbs/bootstrap) -->
@@ -183,9 +185,7 @@
             <a class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">
                 <h1 class="flogo">Flameboard</h1>
             </a>
-            <button class="navbar-toggler" type="button" :class="{ collapsed: isCollapsed }" @click="isCollapsed = ! isCollapsed">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
             <div class="collapse navbar-collapse" :class="{ show: !isCollapsed }">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -203,15 +203,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('forum.category.manage') }}">{{ trans('forum::general.manage') }}</a>
                     </li>
-                    @endcan
+                    <li>
+                        @endcan
                 </ul>
                 <ul class="navbar-nav">
+
                     @if (Auth::check())
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" @click="isUserDropdownCollapsed = ! isUserDropdownCollapsed">
                             {{ $username }}
                         </a>
                         <div class="dropdown-menu" :class="{ show: ! isUserDropdownCollapsed }" aria-labelledby="navbarDropdownMenuLink">
+
                             <a class="dropdown-item" href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Log out
                             </a>
@@ -232,32 +236,47 @@
             </div>
         </div>
     </nav>
-
     <div id="main" class="container">
         @include('forum::partials.breadcrumbs')
         @include('forum::partials.alerts')
 
         @yield('content')
     </div>
-    <div class="h-screen flex justify-center items-center bg-gray-50">
-        <div class="w-full sm:w-8/12 md:w-6/12 p-4">
-            <div class="p-4 rounded-lg shadow bg-white dark:bg-gray-700">
-                <h1 class="font-semibold text-lg dark:text-gray-200">
-                    Card Heading
+
+    <main class="bg-gray-800 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto py-24 grid grid-cols-2">
+            <div>
+                <h1 class="py-4 text-green-500 dark:text-yellow-500 font-bold text-6xl">
+                    In-demand talent on demand.TM <br /> <span class="text-white">Upwork is how.TM</span>
                 </h1>
-                <p class="mt-2 dark:text-gray-200">
-                    This is the content of the card
+                <p class="text-2xl text-white py-4">
+                    Hire proven pros with confidence using the world’s largest, remote talent platform.
                 </p>
-                <button class="mt-2 px-3 py-2 bg-pink-400 rounded-lg font-semibold text-white">
-                    Toggle Modes
-                </button>
             </div>
         </div>
-    </div>
+    </main>
+
     <div class="mask">
     </div>
 
     <script>
+        document.getElementById('switchTheme').addEventListener('click', function() {
+            let htmlClasses = document.querySelector('html').classList;
+            console.log('go')
+            if (localStorage.theme == 'dark') {
+                htmlClasses.remove('dark');
+                localStorage.removeItem('theme')
+            } else {
+                htmlClasses.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+        if (localStorage.theme === 'dark' || (!'theme' in localStorage && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.querySelector('html').classList.add('dark')
+        } else if (localStorage.theme === 'dark') {
+            document.querySelector('html').classList.add('dark')
+        }
+
         new Vue({
             el: '.v-navbar',
             name: 'Navbar',
