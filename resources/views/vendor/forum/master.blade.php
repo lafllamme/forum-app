@@ -13,9 +13,15 @@
         @endif
         {{ trans('forum::general.home_title') }}
     </title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script defer src="{{ asset('js/app.js') }}"></script>
-    <script defer src="{{ asset('js/alpine.js') }}"></script>
+    <script defer src="{{ asset('js/alpine.js') }}"></script> -->
+    <link rel="stylesheet" href="/css/app.css">
+    <script defer src="/js/alpine.js"></script>
+    <script defer src="/js/app.js"></script>
+
+
+
 
 
 
