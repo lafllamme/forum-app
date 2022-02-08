@@ -38,6 +38,7 @@
     <!-- Pickr (https://github.com/Simonwep/pickr) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
 
     <!-- Sortable (https://github.com/SortableJS/Sortable) -->
     <script src="//cdn.jsdelivr.net/npm/sortablejs@1.10.1/Sortable.min.js"></script>
@@ -179,7 +180,7 @@
     </style>
 </head>
 
-<body>
+<body class="dark:bg-gray-900">
     <nav class="v-navbar navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url(config('forum.web.router.prefix')) }}">
@@ -236,20 +237,20 @@
             </div>
         </div>
     </nav>
-    <div id="main" class="container">
+    <div id="main" class="container dark:bg-gray-900">
         @include('forum::partials.breadcrumbs')
         @include('forum::partials.alerts')
 
         @yield('content')
     </div>
 
-    <main class="bg-gray-800 dark:bg-gray-900">
+    <main class="bg-light-800 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto py-24 grid grid-cols-2">
             <div>
                 <h1 class="py-4 text-green-500 dark:text-yellow-500 font-bold text-6xl">
-                    In-demand talent on demand.TM <br /> <span class="text-white">Upwork is how.TM</span>
+                    In-demand talent on demand.TM <br /> <span class="text-black dark:bg-gray-900 dark:text-white">Upwork is how.TM</span>
                 </h1>
-                <p class="text-2xl text-white py-4">
+                <p class="text-black text-2xl dark:text-white py-4">
                     Hire proven pros with confidence using the world’s largest, remote talent platform.
                 </p>
             </div>
