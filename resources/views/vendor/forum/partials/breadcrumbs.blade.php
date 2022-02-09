@@ -19,9 +19,8 @@
 
 <style>
     .glow {
-        font-size: 1.2rem;
-        font-weight: 200;
-        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
         animation: glow 1s ease-in-out infinite alternate;
