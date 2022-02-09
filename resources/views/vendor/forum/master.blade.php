@@ -19,9 +19,7 @@
     <script defer src="/js/alpine.js"></script>
     <script defer src="/js/app.js"></script>
 
-
-
-
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 
     <!-- Bootstrap (https://github.com/twbs/bootstrap) -->
@@ -337,10 +335,8 @@
             </div>
             <!-- label -->
 
-            <div class="shake-little shake-constant shake-constant--hover">
-                <div class="ml-3 text-gray-700 font-medium dark:text-white">
-                    Toggle Darkmode 🌙
-                </div>
+            <div class="ml-3 text-gray-700 font-medium dark:text-white">
+                Toggle Darkmode 🌙
             </div>
         </label>
 
