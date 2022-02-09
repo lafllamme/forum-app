@@ -37,6 +37,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     @endif
 
+
+
     <!-- Axios (https://github.com/axios/axios) -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -330,7 +332,7 @@
             </div>
             <!-- label -->
 
-            <div class="shake-constant shake-little">
+            <div class="shake-little shake-constant shake-constant--hover">
                 <div class="ml-3 text-gray-700 font-medium dark:text-white">
                     Toggle Darkmode 🌙
                 </div>
@@ -394,150 +396,124 @@
         } else if (localStorage.theme === 'dark') {
             document.querySelector('html').classList.add('dark')
         }
-        if (localStorage.switchMode == 0) {
-            // toggle.checked = 'false'
-            console.log('Offline')
-        }
         if (localStorage.switchMode == 1) {
             toggle.checked = 'true'
             console.log('Online')
 
         }
+        const mask = document.querySelector('.mask');
+
+        function findModal(key) {
+            const modal = document.querySelector(`[data-modal=${key}]`);
+
+            if (!modal) throw `Attempted to open modal '${key}' but no such modal found.`;
+
+            return modal;
+        }
 
         function showMenu() {
             const toggleMenu = document.getElementById('toggleMenu');
-            console.log(toggleMenu)
             if (toggleMenu.classList.contains('hideElement')) {
                 toggleMenu.classList.remove('hideElement');
             } else {
                 toggleMenu.classList.add('hideElement');
 
             }
-            userButton.addEventListener('click', showMenu)
-
-
-
-
-
-
-            const mask = document.querySelector('.mask');
-
-            function findModal(key) {
-                const modal = document.querySelector(`[data-modal=${key}]`);
-
-                if (!modal) throw `Attempted to open modal '${key}' but no such modal found.`;
-
-                return modal;
-            }
-
-            function openModal(modal) {
-                modal.style.display = 'block';
-                mask.style.display = 'block';
-                setTimeout(function() {
-                    modal.classList.add('show');
-                    mask.classList.add('show');
-                }, 200);
-            }
-
-            document.querySelectorAll('[data-open-modal]').forEach(item => {
-                item.addEventListener('click', event => {
-                    event.preventDefault();
-
-                    openModal(findModal(event.currentTarget.dataset.openModal));
-                });
-            });
-
-            document.querySelectorAll('[data-modal]').forEach(modal => {
-                modal.addEventListener('click', event => {
-                    if (!event.target.hasAttribute('data-close-modal')) return;
-
-                    modal.classList.remove('show');
-                    mask.classList.remove('show');
-                    setTimeout(function() {
-                        modal.style.display = 'none';
-                        mask.style.display = 'none';
-                    }, 200);
-                });
-            });
-
-            document.querySelectorAll('[data-dismiss]').forEach(item => {
-                item.addEventListener('click', event => event.currentTarget.parentElement.style.display = 'none');
-            });
-
-            document.addEventListener('DOMContentLoaded', event => {
-                const hash = window.location.hash.substr(1);
-                if (hash.startsWith('modal=')) {
-                    openModal(findModal(hash.replace('modal=', '')));
-                }
-
-                feather.replace();
-
-                const input = document.querySelector('input[name=color]');
-
-                if (!input) return;
-
-                const pickr = Pickr.create({
-                    el: '.pickr',
-                    theme: 'classic',
-                    default: input.value || null,
-
-                    swatches: [
-                        "{{ config('forum.web.default_category_color ') }}",
-                        '#f44336',
-                        '#e91e63',
-                        '#9c27b0',
-                        '#673ab7',
-                        '#3f51b5',
-                        '#2196f3',
-                        '#03a9f4',
-                        '#00bcd4',
-                        '#009688',
-                        '#4caf50',
-                        '#8bc34a',
-                        '#cddc39',
-                        '#ffeb3b',
-                        '#ffc107'
-                    ],
-
-                    components: {
-                        preview: true,
-                        hue: true,
-                        interaction: {
-                            input: true,
-                            save: true
-                        }
-                    },
-
-                    strings: {
-                        save: 'Apply'
-                    }
-                });
-
-                pickr
-                    .on('save', instance => pickr.hide())
-                    .on('clear', instance => {
-                        input.value = '';
-                        input.dispatchEvent(new Event('change'));
-                    })
-                    .on('cancel', instance => {
-                        const selectedColor = instance
-                            .getSelectedColor()
-                            .toHEXA()
-                            .toString();
-
-                        input.value = selectedColor;
-                        input.dispatchEvent(new Event('change'));
-                    })
-                    .on('change', (color, instance) => {
-                        const selectedColor = color
-                            .toHEXA()
-                            .toString();
-
-                        input.value = selectedColor;
-                        input.dispatchEvent(new Event('change'));
-                    });
-            });
         }
+        userButton.addEventListener('click', showMenu)
+
+
+        function openModal(modal) {
+            modal.style.display = 'block';
+            mask.style.display = 'block';
+            setTimeout(function() {
+                modal.classList.add('show');
+                mask.classList.add('show');
+            }, 200);
+        }
+        document.querySelectorAll('[data-open-modal]').forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
+                openModal(findModal(event.currentTarget.dataset.openModal));
+            });
+        });
+        document.querySelectorAll('[data-modal]').forEach(modal => {
+            modal.addEventListener('click', event => {
+                if (!event.target.hasAttribute('data-close-modal')) return;
+                modal.classList.remove('show');
+                mask.classList.remove('show');
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                    mask.style.display = 'none';
+                }, 200);
+            });
+        });
+        document.querySelectorAll('[data-dismiss]').forEach(item => {
+            item.addEventListener('click', event => event.currentTarget.parentElement.style.display = 'none');
+        });
+        document.addEventListener('DOMContentLoaded', event => {
+            const hash = window.location.hash.substr(1);
+            if (hash.startsWith('modal=')) {
+                openModal(findModal(hash.replace('modal=', '')));
+            }
+            feather.replace();
+            const input = document.querySelector('input[name=color]');
+            if (!input) return;
+            const pickr = Pickr.create({
+                el: '.pickr',
+                theme: 'classic',
+                default: input.value || null,
+                swatches: [
+                    "{{ config('forum.web.default_category_color ') }}",
+                    '#f44336',
+                    '#e91e63',
+                    '#9c27b0',
+                    '#673ab7',
+                    '#3f51b5',
+                    '#2196f3',
+                    '#03a9f4',
+                    '#00bcd4',
+                    '#009688',
+                    '#4caf50',
+                    '#8bc34a',
+                    '#cddc39',
+                    '#ffeb3b',
+                    '#ffc107'
+                ],
+                components: {
+                    preview: true,
+                    hue: true,
+                    interaction: {
+                        input: true,
+                        save: true
+                    }
+                },
+                strings: {
+                    save: 'Apply'
+                }
+            });
+            pickr
+                .on('save', instance => pickr.hide())
+                .on('clear', instance => {
+                    input.value = '';
+                    input.dispatchEvent(new Event('change'));
+                })
+                .on('cancel', instance => {
+                    const selectedColor = instance
+                        .getSelectedColor()
+                        .toHEXA()
+                        .toString();
+                    input.value = selectedColor;
+                    input.dispatchEvent(new Event('change'));
+                })
+                .on('change', (color, instance) => {
+                    const selectedColor = color
+                        .toHEXA()
+                        .toString();
+                    input.value = selectedColor;
+                    input.dispatchEvent(new Event('change'));
+                });
+        });
     </script>
     @yield('footer')
 </body>

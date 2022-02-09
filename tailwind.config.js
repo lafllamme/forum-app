@@ -8,6 +8,7 @@ module.exports = {
         './resources/**/*.js',
         './resources/**/*.vue',
         './resources/**/**/*.blade.php',
+        './forum/**/**/*.blade.php',
     ],
     theme: {
         extend: {

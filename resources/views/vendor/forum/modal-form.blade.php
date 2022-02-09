@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" data-modal="{{ $key }}" data-close-modal>
+<div class="modal fade" tabindex="-1" role="dialog" data-modal="{{ $key ?? '' }}" data-close-modal>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content shadow-sm dark:bg-gray-900 dark:text-white">
             <div class="modal-header">
