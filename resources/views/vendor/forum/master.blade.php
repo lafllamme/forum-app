@@ -184,7 +184,12 @@
         /* Toggle A */
         input:checked~.dot {
             transform: translateX(100%);
-            background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%) !important;
+            background-image: url('https://i.pinimg.com/originals/b1/07/66/b1076692adcaf84b1bc10d9bf703fae8.gif') !important;
+            background-blend-mode: multiply, multiply;
+        }
+
+        input~.dot {
+            background-image: url('https://media4.giphy.com/media/h6x0ROdzJy4TKyUu1b/giphy-downsized-large.gif') !important;
         }
 
         .hideElement {
@@ -199,7 +204,7 @@
             <div class="relative flex items-center justify-between h-16">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
-                    <button type="button" class="bg-white-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:bg-gray-900 dark:hover:bg-white-900" aria-controls="mobile-menu" aria-expanded="false">
+                    <button type="button" onclick="showMobileMenu()" class="bg-white-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-black hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:bg-gray-900 dark:hover:bg-white-900" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <!--
             Icon when menu is closed.
@@ -250,7 +255,7 @@
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative">
                         <div>
-                            <button onclick="showMenu(); this.onclick=null;" type="button" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-gray-800 dark:focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <button onclick="showMenu()" type="button" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-gray-800 dark:focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="sr-only">Open user menu</span>
                                 <svg version="1.0" class="dark:bg-white rounded-full" xmlns="http://www.w3.org/2000/svg" width="25pt" height="25pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
 
@@ -304,7 +309,7 @@
         </div>
 
         <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="sm:hidden" id="mobile-menu">
+        <div class="sm:hidden" class="hideElement" id="mobile-menu-hide">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a href="{{ url(config('forum.web.router.prefix')) }}" class="text-slate-50 dark:text-gray-800 bg-gray-900 block px-3 py-2 rounded-md text-base font-medium dark:bg-white" aria-current=" page">Index</a>
@@ -419,9 +424,19 @@
                 toggleMenu.classList.add('hideElement');
 
             }
-        }
-        userButton.addEventListener('click', showMenu)
 
+        }
+
+        function showMobileMenu() {
+            const toggleMobileMenu = document.getElementById('mobile-menu-hide');
+
+            if (toggleMobileMenu.classList.contains('hideElement')) {
+                toggleMobileMenu.classList.remove('hideElement');
+            } else {
+                toggleMobileMenu.classList.add('hideElement');
+
+            }
+        }
 
         function openModal(modal) {
             modal.style.display = 'block';
