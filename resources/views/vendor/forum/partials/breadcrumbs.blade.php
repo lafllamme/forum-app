@@ -5,11 +5,11 @@
         @include ('forum::partials.breadcrumb-categories', ['category' => $category])
         @endif
         @if (isset($thread) && $thread)
-        <li class="breadcrumb-item"><a class="" href="{{ Forum::route('thread.show', $thread) }}">{{ $thread->title }}</a></li>
+        <li class="breadcrumb-item"><a class="text-black dark:text-white" href="{{ Forum::route('thread.show', $thread) }}">{{ $thread->title }}</a></li>
         @endif
         @if (isset($breadcrumbs_append) && count($breadcrumbs_append) > 0)
         @foreach ($breadcrumbs_append as $breadcrumb)
-        <li class="breadcrumb-item">{{ $breadcrumb }}</li>
+        <li class="breadcrumb-item text-black dark:text-white">{{ $breadcrumb }}</li>
         @endforeach
         @endif
 

@@ -18,8 +18,9 @@
 
     <script defer src="/js/alpine.js"></script>
     <script defer src="/js/app.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <!-- Bootstrap (https://github.com/twbs/bootstrap) -->
@@ -106,9 +107,7 @@
             vertical-align: -3px;
         }
 
-        .category .subcategories {
-            background: #fff;
-        }
+
 
         .category>.list-group-item {
             z-index: 1000;
@@ -197,7 +196,7 @@
 </head>
 
 <body class="bg-white-900 dark:bg-gray-900">
-    <nav class="bg-slate-200 dark:bg-gray-800">
+    <nav id="body-element" class="bg-slate-200 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="relative flex items-center justify-between h-16">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -340,6 +339,14 @@
             </div>
         </label>
 
+        <button type="button" id="playButton" class="rounded-full text-center
+         text-sm ml-12 font-medium px-4 py-2.5 bg-slate-200 text-black hover:text-blue-700 
+         dark:hover:text-yellow-300 dark:bg-gray-800 dark:text-white" on>Play</button>
+
+
+
+        <!-- <button onclick="play_audio('play')">PLAY</button>
+        <button onclick="play_audio('stop')">STOP</button> -->
     </div>
 
 
@@ -370,6 +377,89 @@
 
     <script>
         const toggle = document.getElementById('toggleB');
+        const body = document.getElementById('body-element');
+
+        const startAudio = (base, offset = 0, pause) => {
+            if (pause) {
+                console.log('pause');
+            } else {
+                var audio = new Audio('/storage/themes/mi.mp3')
+                audio.volume = 0.7
+                audio.id = 'autoPlayer'
+                audio.currentTime = offset;
+                audio.autoplay = true
+                audio.load()
+
+                audio.addEventListener('load', function() {
+                    audio.play();
+                }, true);
+
+                audio.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                }, false);
+
+                // Reflect data to localStorage
+                localStorage.setItem("audio", base);
+
+                if ("pause" in localStorage) {
+                    localStorage.removeItem("pause");
+                    //nden jaasdasdsada
+
+                }
+
+                setInterval(() => {
+                    localStorage.setItem("audio_time", audio.currentTime);
+                    if ("pause" in localStorage) {
+                        audio.pause();
+                        console.log('okay')
+                    }
+
+                }, 100);
+                console.log('audio: ', audio);
+            }
+        }
+
+        const audioPlayer = () => {
+            const playButton = document.getElementById("playButton");
+            if (playButton.innerHTML == 'Pause') {
+                localStorage.setItem("pause", true);
+                playButton.innerHTML = 'Play';
+            } else {
+                localStorage.setItem("pause", false);
+                if ("audio" in localStorage) {
+                    startAudio(
+                        localStorage.getItem("audio"),
+                        localStorage.getItem("audio_time")
+                    )
+                    playButton.innerHTML = 'Pause';
+
+                } else {
+                    startAudio()
+                    console.log("2");
+                    playButton.innerHTML = 'Pause';
+
+                }
+            }
+        }
+
+
+        $('#stop').on({
+            click: audioPlayer()
+        });
+
+        setInterval(() => {
+            if (localStorage.getItem('pause') == false) {
+                $(window).on({
+                    click: audioPlayer,
+                    touchstart: audioPlayer,
+                    keydown: audioPlayer,
+                })
+            }
+        }, 1000)
+
+
+
 
         function cacheInput(e) {
             if (toggle.checked == true) {
@@ -525,6 +615,20 @@
                     input.dispatchEvent(new Event('change'));
                 });
         });
+
+
+        const timeStamps = document.getElementsByClassName('time')
+        console.log(timeStamps);
+
+        // if ((typeof(badgeStyle) != 'undefined' && badgeStyle != null)) {
+        //     const badgeStyle = badgeColor.style.color
+
+        //     for (let i = 0; i < timeStamps.length; i++) {
+        //         badgeColor.style.color;
+        //         console.log('lol', timeStamps[i]);
+        //     }
+
+        // }
     </script>
     @yield('footer')
 </body>

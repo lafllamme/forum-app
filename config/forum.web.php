@@ -45,6 +45,7 @@ return [
         'category' => 'c',
         'thread' => 't',
         'post' => 'p',
+        
     ],
 
     /*

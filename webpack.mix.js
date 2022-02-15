@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,5 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
         require('postcss-import'),
         require('tailwindcss'),
         require('autoprefixer'),
-        
+
     ]);
+    // .version();
