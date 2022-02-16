@@ -375,6 +375,10 @@
     <div class="mask">
     </div>
 
+    <div id="app">
+        <example-component></example-component>
+    </div>
+
     <script>
         const toggle = document.getElementById('toggleB');
         const body = document.getElementById('body-element');

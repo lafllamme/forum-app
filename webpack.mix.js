@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -7,7 +6,7 @@ var LiveReloadPlugin = require('webpack-livereload-plugin');
  |--------------------------------------------------------------------------
  |
  | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
+ | for your Laravel application. By default, we are compiling the Sass
  | file for the application as well as bundling up all the JS files.
  |
  */
@@ -19,5 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
 
-    ]);
-    // .version();
+    ])
+    .vue();
+ // .version();
