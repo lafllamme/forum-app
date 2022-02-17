@@ -10,6 +10,3 @@ justify-center px-2 py-1 text-xs font-bold leading-none rounded-full" datetime="
 <time class="text-black dark:text-white m-2 inline-flex items-center 
 justify-center px-2 py-1 text-xs font-bold leading-none rounded-full" datetime="{{ $carbon }}" title="{{ $carbon->toDayDateTimeString() }}" >{{ $carbon->diffForHumans() }}</time>
 @endif
-
-<script>
-</script>

@@ -375,9 +375,9 @@
     <div class="mask">
     </div>
 
-    <div id="app">
+    <!-- <div id="app">
         <example-component></example-component>
-    </div>
+    </div> -->
 
     <script>
         const toggle = document.getElementById('toggleB');
